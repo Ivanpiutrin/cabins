@@ -96,3 +96,14 @@ def listado_maestro(request):
     maestros = Worker.objects.all()
     context = {'maestros': maestros}
     return render(request, 'listar_maestro.html', context)
+
+
+def actualizar_maestro(request):
+    form = FormWorker()
+    if request.method == 'POST':
+        form = FormWorker(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(listado_maestro)
+    context = {'form': form}
+    return render(request, 'actualizar_maestro.html', context)

@@ -29,5 +29,6 @@ urlpatterns = [
     path('', views.main_menu, name='menu_principal'),
     path('payment_method/', views.payment_method , name='payment_method'),
     path('worken/', views.ingresar_maestro, name='ingresar_maestro'),
-    path('listado_maestro/', views.listado_maestro, name='listado_maestro')
+    path('listado_maestro/', views.listado_maestro, name='listado_maestro'),
+    path('actualizar_maestro/', views.actualizar_maestro, name='actualizar_maestro')
 ]

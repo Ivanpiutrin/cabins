@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %}Inicio{% endblock %}
+
+{% block body %}
+<div class="alert alert-info display-1 text-center">Inicio</div>
+<div class="row">
+    <div class="col">
+        <button class="btn p-3 w-100 btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Proyectos
+        </button>      
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item">Ver Proyectos(no funciona)</a></li>
+            <li><a href="{% url 'crear_proyecto' %}" class="dropdown-item">Nuevo Proyecto</a></li>
+        </ul>
+    </div>
+    <div class="col">
+        <button class="btn p-3 w-100 btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Facturas(no funciona)
+        </button>      
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item">Ver Facturas</a></li>
+            <li><a href="" class="dropdown-item">Nuevo Proyecto</a></li>
+        </ul>
+    </div>
+    <div class="col">
+        <button class="btn p-3 w-100 btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Maestro
+        </button>      
+        <ul class="dropdown-menu">
+            <li><a href="{% url 'listado_maestro' %}" class="dropdown-item" type="a">Ver Maestro</a></li>
+            <li><a href="{% url 'ingresar_maestro' %}" class="dropdown-item" type="a">Nuevo Maestro</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

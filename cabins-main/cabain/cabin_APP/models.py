@@ -1,42 +1,27 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Region(models.Model):
-    region_name = models.CharField(max_length=30, verbose_name='Región')
+    region_name = models.CharField(max_length=64, verbose_name='Región')
 
     def __str__(self):
         return self.region_name
 
 class City(models.Model):
     region = models.ForeignKey(Region, on_delete=models.CASCADE, verbose_name='Región')
-    city_name = models.CharField(max_length=30, verbose_name='Ciudad')
+    city_name = models.CharField(max_length=64, verbose_name='Ciudad')
 
     def __str__(self):
         return self.city_name
 
 class Commune(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Ciudad')
-    commune_name = models.CharField(max_length=30, verbose_name='Comuna')
+    commune_name = models.CharField(max_length=64, verbose_name='Comuna')
 
     def __str__(self):
         return self.commune_name
-
-class User(models.Model):
-    username = models.CharField(max_length=30, verbose_name='Usuario')
-    password = models.CharField(max_length=30, verbose_name='Contraseña')
-    names = models.CharField(max_length=60, verbose_name='Nombre')
-    last_names = models.CharField(max_length=60, verbose_name='Apellido')
-    email = models.EmailField(verbose_name='Correo electrónico')
-    phone = models.CharField(max_length=20, verbose_name='Celular')
-
-    def __str__(self):
-        return self.username
-
-    def getToLogin(self):
-        return (self.username, self.password)
-
-#Falta por crear form y html
 
 class PaymentMethod(models.Model):
     payment_name = models.CharField(max_length=30, verbose_name='Método de pago')
@@ -50,13 +35,12 @@ class Bank(models.Model):
     def __str__(self):
         return self.bank_name
 
-#Parra measure unit y product
-
 class MeasureUnit(models.Model):
     unit_name = models.CharField(max_length=20, verbose_name='Unidad de medida')
+    symbol = models.CharField(max_length=20, verbose_name='Símbolo')
 
     def __str__(self):
-        return self.unit_name
+        return self.symbol
 
 class Product(models.Model):
     product_name = models.CharField(max_length=30, verbose_name='Nombre del producto')
@@ -65,8 +49,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
-
-#hasta aqui
 
 class Client(models.Model):
     client_rut = models.CharField(max_length=12, verbose_name='Rut Cliente')
@@ -121,7 +103,7 @@ class BillDetail(models.Model):
 class Project(models.Model):
     project_name = models.CharField(max_length=60, verbose_name='Nombre Proyecto')
     surface = models.IntegerField(verbose_name='Superficie(m2)')
-    total_price = models.IntegerField(verbose_name='Costo total', blank=True, null=True)
+    total_price = models.IntegerField(verbose_name='Presupuesto', blank=True, null=True)
     username = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuario')
 
     def __str__(self):
@@ -135,16 +117,17 @@ class ProjectDetail(models.Model):
     def __str__(self):
         return f'{self.project}-{self.product}'
 
-class Worker(models.Model):#Trabajador
+class Worker(models.Model):
     names = models.CharField(max_length=60, verbose_name='Nombre')
     last_names = models.CharField(max_length=60, verbose_name='Apellido')
-    payment = models.IntegerField(verbose_name='Costo')
-    balance = models.IntegerField(verbose_name='Deuda')
+    contact = models.IntegerField(max_length=12, verbose_name='Celular')
 
     def __str__(self):
         return f'{self.names} {self.last_names}'
     
-class ProjectWorker():
+class ProjectWorker(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name='Proyecto')
     worker = models.ForeignKey(Worker, on_delete=models.CASCADE, verbose_name='Trabajador')
     work = models.CharField(max_length=60, verbose_name='Trabajo')
+    payment = models.IntegerField(verbose_name='Costo')
+    balance = models.IntegerField(verbose_name='Deuda')

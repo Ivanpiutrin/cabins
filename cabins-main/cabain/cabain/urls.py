@@ -14,21 +14,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from cabin_APP import views
 
 urlpatterns = [
+    path('producto/', views.producto, name='producto'),
+    path('eliminar_producto/<int:id>', views.eliminar_producto, name='eliminar_producto'),
+    path('proyecto/<int:id>', views.proyecto, name='proyecto'),
+    path('cuenta/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
-    path('listado_regiones/', views.listado_regiones, name='listado_regiones'),
-    path('ingresar_region/', views.ingresar_region, name='ingresar_region'),
-    path('listado_ciudades/', views.listado_ciudades, name='listado_ciudades'),
-    path('ingresar_ciudades/', views.ingresar_ciudades, name='ingresar_ciudad'),
-    path('iniciar_sesion/',views.iniciar_sesion, name='iniciar_sesion'),
-    path('registrarse/', views.resgistrar_usuario, name='registro'),
     path('proyecto_nuevo/', views.crear_proyecto, name='crear_proyecto'),
+    path('listado_proyecto/', views.listado_proyectos, name='listado_proyectos'),
     path('', views.main_menu, name='menu_principal'),
     path('payment_method/', views.payment_method , name='payment_method'),
-    path('worken/', views.ingresar_maestro, name='ingresar_maestro'),
-    path('listado_maestro/', views.listado_maestro, name='listado_maestro'),
-    path('actualizar_maestro/', views.actualizar_maestro, name='actualizar_maestro')
+    path('eliminar_metodo_pago/<int:id>', views.eliminar_metodo_pago, name='eliminar_metodo_pago'),
+    path('actualizar_metodo_pago/<int:id>', views.actualizar_metodo_pago, name='actualizar_metodo_pago'),
+    path('unidad_medida/', views.unidad_medida, name='unidad_medida'),
+    path('unidad_medida/<int:id>', views.actualizar_unidad_medida, name='actualizar_unidad_medida'),
+    path('unidad_medida_delete/<int:id>', views.eliminar_unidad_medida, name='eliminar_unidad_medida'),
+    path('maestro/', views.maestro, name='maestro'),
+    path('actualizar_maestro/<int:id>', views.actualizar_maestro, name='actualizar_maestro'),
+    path('eliminar_maestro/<int:id>', views.eliminar_maestro, name='eliminar_maestro'),
+    path('sessions/', views.sessions, name='sessions'),
+    path('nueva_factura/', views.crear_factura, name='crear_factura'), 
+    path('listado_factura/', views.listado_factura, name='listado_factura'),
 ]

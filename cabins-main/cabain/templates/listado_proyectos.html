@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block title %}Proyectos{% endblock title %}
+
+{% block body %}
+  <div class="alert alert-info display-1 text-center">Proyectos</div>
+
+{% if items %}
+    {% for item in items %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.project_name}}</h5>
+                <p class="card-text">Superficie: {{item.surface}}</p>
+                <p class="car-text">Costo total: {{item.total_price}}</p>
+                <a href="{% url 'proyecto' id=item.id %}" class="btn btn-primary">Detalles</a>
+            </div>
+        </div>
+    {% endfor %}
+          </tbody>
+      </table>
+{% else %}
+      <div class="alert alert-primary" role="alert">
+          <strong>No se encuentran proyecto en el sistema</strong>
+      </div>
+{% endif %}
+<a href="{% url 'menu_principal' %}" class="btn btn-outline-secondary">Volver</a>
+{% endblock body %}
